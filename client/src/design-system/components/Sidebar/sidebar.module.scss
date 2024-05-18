@@ -1,0 +1,97 @@
+.navbar {
+  background-color: white;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 5;
+  padding: var(--mantine-spacing-md);
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--mantine-color-gray-3);
+  @media (max-width: 1000px) {
+    height: fit-content;
+  }
+}
+
+.links {
+  flex: 1;
+  margin-left: calc(var(--mantine-spacing-md) * -1);
+  margin-right: calc(var(--mantine-spacing-md) * -1);
+}
+
+.linksInner {
+  padding-bottom: var(--mantine-spacing-xl);
+}
+
+.footer {
+  margin-left: calc(var(--mantine-spacing-md) * -1);
+  margin-right: calc(var(--mantine-spacing-md) * -1);
+  border-top: 1px solid var(--mantine-color-gray-3);
+}
+
+.control {
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  padding: var(--mantine-spacing-xs);
+  color: var(--mantine-color-text);
+  font-size: var(--mantine-font-size-sm);
+
+  &:hover {
+    background-color: var(--mantine-color-gray-3);
+    color: var(--mantine-color-dark-4);
+  }
+}
+.activeControl {
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  padding: var(--mantine-spacing-xs);
+  background-color: var(--mantine-color-gray-3);
+  color: var(--mantine-color-dark-4);
+  font-size: var(--mantine-font-size-sm);
+}
+
+.link {
+  font-weight: 500;
+  display: block;
+  text-decoration: none;
+  padding: var(--mantine-spacing-xs);
+  padding-left: var(--mantine-spacing-md);
+  margin-left: var(--mantine-spacing-xl);
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-gray-7);
+  border-left: 1px solid var(--mantine-color-gray-3);
+  &:hover {
+    background-color: var(--mantine-color-gray-3);
+    color: var(--mantine-color-dark-5);
+  }
+}
+.activeLink {
+  font-weight: 500;
+  display: block;
+  text-decoration: none;
+  padding: var(--mantine-spacing-xs);
+  padding-left: var(--mantine-spacing-md);
+  margin-left: var(--mantine-spacing-xl);
+  font-size: var(--mantine-font-size-sm);
+  background-color: var(--mantine-color-gray-3);
+  color: var(--mantine-color-dark-5);
+  border-left: 1px solid var(--mantine-color-gray-3);
+}
+
+.chevron {
+  transition: transform 200ms ease;
+}
+
+body {
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
