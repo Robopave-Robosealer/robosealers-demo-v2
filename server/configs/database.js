@@ -7,7 +7,7 @@ const uriMap = {
 const selectedEnv = process.env.CURRENT_URL || 'development';
 let uri = uriMap[selectedEnv];
 const connection = async () => {
-    return mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    return mongoose.connect(uri)
         .then(() => {
             console.log(`Connected to MongoDB database successfully on ${selectedEnv} environment!`);
 
