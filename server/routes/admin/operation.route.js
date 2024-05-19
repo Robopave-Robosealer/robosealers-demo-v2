@@ -11,6 +11,6 @@ app.get("/listAreas", operationController.listAreas);
 app.get("/list", operationController.listOperations);
 app.get("/get", operationController.getOperation);
 
-app.post("/images", uploadedFiles.array('images'), operationController.uploadImages)
+// app.post("/images", uploadedFiles.array('images'), operationController.uploadImages)
 
 module.exports = app
