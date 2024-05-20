@@ -3,7 +3,7 @@ import { store } from "../../../store/store";
 import { logout } from "../../auth/slice/authSlice";
 import { Navigate } from "react-router-dom";
 
-const BASE_END_POINT = "http://54.86.46.200/api/v1/";
+const BASE_END_POINT = "/api/v1/";
 
 const baseURL = BASE_END_POINT;
 const Axios = axios.create({ baseURL });

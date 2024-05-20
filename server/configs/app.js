@@ -15,27 +15,31 @@ databaseConnection();
 app.use(cors());
 
 // Serve static files from the React build directory
-const buildPath = path.join(__dirname, "..", "..", "client", "build");
+const buildPath = path.join(__dirname, "..", "public");
 app.use(express.static(buildPath));
-
+app.use(bodyParser.json());
 app.use(routes);
 
-app.get("*", function(req, res){
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
+});
 
-    res.sendFile(
-      path.join(buildPath, "index.html"),
-        function (err) {
-          if (err) {
-            res.status(500).send(err);
-          }
-        }
-      );
+// app.get("*", function(req, res){
 
-})
+//     res.sendFile(
+//       path.join(buildPath, "index.html"),
+//         function (err) {
+//           if (err) {
+//             res.status(500).send(err);
+//           }
+//         }
+//       );
+
+// })
 
 app.use(handleCorsPolicy);
 app.use(express.json());
-app.use(bodyParser.json());
+
 app.use(morgan("dev"));
 app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({ extended: false }));
