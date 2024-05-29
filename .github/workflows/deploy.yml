@@ -1,0 +1,53 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20" # Specify your Node.js version
+
+      - name: Install server dependencies
+        run: |
+          cd server
+          npm install
+
+      - name: Install client dependencies and build
+        run: |
+          cd client
+          yarn install
+          yarn build
+
+      - name: Move build files to server public directory
+        run: |
+          mv client/build/* server/public/
+
+      # - name: Archive production artifacts
+      #   run: zip -r production.zip server # Adjust the files to be archived as needed
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1 # Replace with your AWS region
+
+      # - name: Upload artifact to S3
+      #   run: aws s3 cp production.zip s3://my-bucket-name/production.zip # Replace with your S3 bucket name
+
+      - name: Deploy to EC2 via CodeDeploy
+        run:
+          aws deploy create-deployment \
+          --application-name RobosealersApp \ --deployment-group-name RobosealersAppDeploymentGroup \ # Replace with your App name and deployment group name
+          # --s3-location bucket=my-bucket-name,key=production.zip,bundleType=zip # Replace with your S3 bucket name and key
