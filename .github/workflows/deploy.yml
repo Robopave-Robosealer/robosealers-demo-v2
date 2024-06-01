@@ -74,36 +74,37 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            whoami
             # Move build files to server public directory
-            cd apps/robosealers-demo-v2
-            echo "ebtered project directory"
+            # cd apps/robosealers-demo-v2
+            # echo "ebtered project directory"
 
-            git pull
-            echo "project updated successfully"
+            # git pull
+            # echo "project updated successfully"
 
-            cd client
-            yarn install
-            echo "client package installed successfully"
+            # cd client
+            # yarn install
+            # echo "client package installed successfully"
 
-            yarn build
-            echo "react app build successfully"
+            # yarn build
+            # echo "react app build successfully"
 
-            rm -rf ../server/public/*
-            echo "remove public content directory in server"
+            # rm -rf ../server/public/*
+            # echo "remove public content directory in server"
 
-            mv build/* ../server/public/
-            echo "move build files to server public directory"
+            # mv build/* ../server/public/
+            # echo "move build files to server public directory"
 
-            # Stop PM2 applications
-            pm2 stop all || true
-            echo "stop  all PM2 applications"
+            # # Stop PM2 applications
+            # pm2 stop all || true
+            # echo "stop  all PM2 applications"
 
-            # Start the server
-            cd ../server
-            npm install
-            pm2 start configs/server.js --name robosealers
-            echo "start server successfully"
+            # # Start the server
+            # cd ../server
+            # npm install
+            # pm2 start configs/server.js --name robosealers
+            # echo "start server successfully"
 
-            # Restart Nginx
-            sudo systemctl restart nginx
-            echo "restart nginx server successfully"
+            # # Restart Nginx
+            # sudo systemctl restart nginx
+            # echo "restart nginx server successfully"
