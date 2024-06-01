@@ -31,7 +31,7 @@ jobs:
 
       - name: Move build files to server public directory
         run: |
-          mv client/build/* server/public/
+          rsync -av --delete client/build/ server/public/
 
       # - name: Archive production artifacts
       #   run: zip -r production.zip server # Adjust the files to be archived as needed
