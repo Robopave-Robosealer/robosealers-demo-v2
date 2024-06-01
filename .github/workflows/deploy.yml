@@ -33,8 +33,8 @@ jobs:
         run: |
           rsync -av --delete client/build/ server/public/
 
-      # - name: Archive production artifacts
-      #   run: zip -r production.zip server # Adjust the files to be archived as needed
+      - name: Archive production artifacts
+        run: zip -r production.zip server
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -43,11 +43,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1 # Replace with your AWS region
 
-      # - name: Upload artifact to S3
-      #   run: aws s3 cp production.zip s3://my-bucket-name/production.zip # Replace with your S3 bucket name
+      - name: Upload artifact to S3
+        run: aws s3 cp production.zip s3://robosealersbucket/production.zip # Replace with your S3 bucket name
+
       - name: Deploy to EC2 via CodeDeploy
         run: |
           aws deploy create-deployment \
             --application-name RobosealersApp \
             --deployment-group-name RobosealersAppDeploymentGroup \
-        # --s3-location bucket=my-bucket-name,key=production.zip,bundleType=zip # Replace with your S3 bucket name and key
+            --s3-location bucket=robosealersbucket,key=production.zip,bundleType=zip
