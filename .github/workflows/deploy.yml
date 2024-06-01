@@ -45,9 +45,9 @@ jobs:
 
       # - name: Upload artifact to S3
       #   run: aws s3 cp production.zip s3://my-bucket-name/production.zip # Replace with your S3 bucket name
-
       - name: Deploy to EC2 via CodeDeploy
-        run:
+        run: |
           aws deploy create-deployment \
-          --application-name RobosealersApp \ --deployment-group-name RobosealersAppDeploymentGroup \ # Replace with your App name and deployment group name
-          # --s3-location bucket=my-bucket-name,key=production.zip,bundleType=zip # Replace with your S3 bucket name and key
+            --application-name RobosealersApp \
+            --deployment-group-name RobosealersAppDeploymentGroup \
+        # --s3-location bucket=my-bucket-name,key=production.zip,bundleType=zip # Replace with your S3 bucket name and key
