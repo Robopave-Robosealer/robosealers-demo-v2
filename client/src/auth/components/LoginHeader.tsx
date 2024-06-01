@@ -12,7 +12,7 @@ export default function LoginHeader() {
     <>
       <Flex direction="column" w={mobile ? "100%" : "48%"}>
         <Title order={1} fz={mobile ? "3rem" : "4rem"} c="dark.7">
-          Control your newwwwww
+          Control your new test
         </Title>
         <Title fz={mobile ? "3rem" : "4rem"} order={1} c={color}>
           Robosealers
