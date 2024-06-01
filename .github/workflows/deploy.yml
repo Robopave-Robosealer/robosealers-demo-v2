@@ -1,54 +1,96 @@
-name: Deploy to EC2
+# name: Deploy to EC2
 
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: "20" # Specify your Node.js version
+
+#       - name: Install server dependencies
+#         run: |
+#           cd server
+#           npm install
+
+#       - name: Install client dependencies and build
+#         run: |
+#           cd client
+#           yarn install
+#           yarn build
+
+#       - name: Move build files to server public directory
+#         run: |
+#           rsync -av --delete client/build/ server/public/
+
+#       - name: Archive production artifacts
+#         run: zip -r production.zip server
+
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-1 # Replace with your AWS region
+
+#       - name: Upload artifact to S3
+#         run: aws s3 cp production.zip s3://robosealersbucket/production.zip # Replace with your S3 bucket name
+
+#       - name: Deploy to EC2 via CodeDeploy
+#         run: |
+#           aws deploy create-deployment \
+#             --application-name RobosealersApp \
+#             --deployment-group-name RobosealersAppDeploymentGroup \
+#             --s3-location bucket=robosealersbucket,key=production.zip,bundleType=zip
+
+name: Deploy to AWS EC2
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20" # Specify your Node.js version
+          node-version: 20
 
-      - name: Install server dependencies
-        run: |
-          cd server
-          npm install
-
-      - name: Install client dependencies and build
-        run: |
-          cd client
-          yarn install
-          yarn build
-
-      - name: Move build files to server public directory
-        run: |
-          rsync -av --delete client/build/ server/public/
-
-      - name: Archive production artifacts
-        run: zip -r production.zip server
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # Replace with your AWS region
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Move build files to server public directory
+            cd apps/robosealers-demo-v2
+            git checkout main
+            git pull origin main
+            cd client
+            yarn install
+            yarn build
+            rm -rf ../server/public/*
+            mv build/* ../server/public/
 
-      - name: Upload artifact to S3
-        run: aws s3 cp production.zip s3://robosealersbucket/production.zip # Replace with your S3 bucket name
+            # Stop PM2 applications
+            pm2 stop all || true
 
-      - name: Deploy to EC2 via CodeDeploy
-        run: |
-          aws deploy create-deployment \
-            --application-name RobosealersApp \
-            --deployment-group-name RobosealersAppDeploymentGroup \
-            --s3-location bucket=robosealersbucket,key=production.zip,bundleType=zip
+            # Start the server
+            cd ../server
+            npm install
+            pm2 start configs/server.js --name robosealers
+
+            # Restart Nginx
+            sudo systemctl restart nginx
