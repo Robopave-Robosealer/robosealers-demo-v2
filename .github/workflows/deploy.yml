@@ -87,17 +87,17 @@ jobs:
               yarn install
               echo "client package installed successfully"
               
-              rm -rf build
-              echo "old build deleted successfully"
+            #   rm -rf build
+            #   echo "old build deleted successfully"
 
-              yarn build
-              echo "react app build successfully"
+            #   yarn build
+            #   echo "react app build successfully"
 
-              rm -rf ../server/public/*
-              echo "remove public content directory in server"
+            #   rm -rf ../server/public/*
+            #   echo "remove public content directory in server"
 
-              mv build/* ../server/public/
-              echo "move build files to server public directory"
+            #   mv build/* ../server/public/
+            #   echo "move build files to server public directory"
 
               # Stop PM2 applications
               pm2 stop all || true
