@@ -79,11 +79,11 @@ jobs:
               # Now we have got the access of EC2 and we will start the deploy .
               rm -rf moh
               
-            #   cd apps/robosealers-demo-v2
-            #   echo "entered project directory"
+              cd apps/robosealers-demo-v2
+              echo "entered project directory"
             
-            #   git pull
-            #   echo "project updated successfully"
+              git pull
+              echo "project updated successfully"
 
             #   cd client
             #   yarn install
@@ -101,17 +101,17 @@ jobs:
             #   mv build/* ../server/public/
             #   echo "move build files to server public directory"
 
-            #   # Stop PM2 applications
-            #   pm2 stop all || true
-            #   echo "stop  all PM2 applications"
+              # Stop PM2 applications
+              pm2 stop all || true
+              echo "stop  all PM2 applications"
 
-            #   # Start the server
-            #   cd ../server
-            #   npm install
-            #   pm2 start configs/server.js --name robosealers
-            #   echo "start server successfully"
+              # Start the server
+              cd ../server
+              npm install
+              pm2 start configs/server.js --name robosealers
+              echo "start server successfully"
 
-            #   # Restart Nginx
-            #   sudo systemctl restart nginx
-            #   echo "restart nginx server successfully"
+              # Restart Nginx
+              sudo systemctl restart nginx
+              echo "restart nginx server successfully"
               '
