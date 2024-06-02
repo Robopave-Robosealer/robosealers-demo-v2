@@ -76,30 +76,28 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
 
-              # Now we have got the access of EC2 and we will start the deploy .
-              rm -rf moh
-              
+              # Now we have got the access of EC2 and we will start the deploy .              
               cd apps/robosealers-demo-v2
               echo "entered project directory"
             
               git pull
               echo "project updated successfully"
 
-            #   cd client
-            #   yarn install
-            #   echo "client package installed successfully"
+              cd client
+              yarn install
+              echo "client package installed successfully"
               
-            #   rm -rf build
-            #   echo "old build deleted successfully"
+              rm -rf build
+              echo "old build deleted successfully"
 
-            #   yarn build
-            #   echo "react app build successfully"
+              yarn build
+              echo "react app build successfully"
 
-            #   rm -rf ../server/public/*
-            #   echo "remove public content directory in server"
+              rm -rf ../server/public/*
+              echo "remove public content directory in server"
 
-            #   mv build/* ../server/public/
-            #   echo "move build files to server public directory"
+              mv build/* ../server/public/
+              echo "move build files to server public directory"
 
               # Stop PM2 applications
               pm2 stop all || true
