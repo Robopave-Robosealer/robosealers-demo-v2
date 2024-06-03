@@ -6,5 +6,14 @@ export default defineConfig({
   plugins: [react()],
   server: {
     open: true
+  },
+  build: {
+    outDir: 'build',
+    sourcemap: true, // Enable sourcemaps for better debugging
+    rollupOptions: {
+      output: {
+        // Optional: Customize the output settings if needed
+      }
+    }
   }
 })
