@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -9,7 +8,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
-    sourcemap: true, // Enable sourcemaps for better debugging
+    sourcemap: false, // Disable sourcemaps for production
     rollupOptions: {
       output: {
         // Optional: Customize the output settings if needed
