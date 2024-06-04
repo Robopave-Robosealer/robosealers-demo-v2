@@ -95,13 +95,11 @@ jobs:
 
               # Stop PM2 applications
               pm2 stop all || true
-              echo "stop  all PM2 applications"
 
               # Start the server
               cd ../server
               npm install
               pm2 start configs/server.js --name robosealers
-              echo "start server successfully"
 
               # Restart Nginx
               sudo systemctl restart nginx

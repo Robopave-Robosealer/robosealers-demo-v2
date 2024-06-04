@@ -20,7 +20,7 @@ export default function Battery() {
     },
     {
       label: "Battery Current",
-      value: "30 A",
+      value: "35 A",
     },
     {
       label: "Battery Health",
