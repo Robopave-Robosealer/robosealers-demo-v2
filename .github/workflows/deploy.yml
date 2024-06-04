@@ -77,6 +77,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
 
               # Now we have got the access of EC2 and we will start the deploy .              
+              
               cd apps/robosealers-demo-v2
             
               git pull
@@ -87,11 +88,10 @@ jobs:
             #   rm -rf build
 
             #   yarn build
-            #   echo "react app build successfully"
 
-              rm -rf ../server/public/*
+            #   rm -rf ../server/public/*
 
-              mv build/* ../server/public/
+            #   mv build/* ../server/public/
 
               # Stop PM2 applications
               pm2 stop all || true
