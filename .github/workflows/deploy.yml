@@ -84,8 +84,7 @@ jobs:
               cd client
               yarn install
               
-              rm -rf build
-
+            #   rm -rf build
 
             #   yarn build
             #   echo "react app build successfully"
